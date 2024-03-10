@@ -14,3 +14,4 @@ Credits for the card assets goes here :
 https://byronknoll.blogspot.com/2011/03/vector-playing-cards.html
 
 Credits for the cringe code belongs to me. 
+Note : no worky on windows. multiprocessing/pickling issue. ill fix it soon.
