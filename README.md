@@ -1,17 +1,46 @@
-openDonk
+# openDonk
 
 purpose : poker client/server application for machine learning experiments.
-footage : https://www.youtube.com/watch?v=osxyx6oaBag
+footage : [YouTube](https://www.youtube.com/watch?v=osxyx6oaBag)
 
 prototype in python, using raylib/pyray. you'll need this: 
 https://electronstudio.github.io/raylib-python-cffi/index.html
 
-server entry point : /server/main.py
+on first run:
+```
+python -m venv env
+source env/bin/activate
+pip install -r requirements.txt
+```
 
-client entry point : /client/main_client.py
+deactivate virtual environment:
+```
+deactivate
+```
 
-Credits for the card assets goes here :
+after first run:
+```
+source env/bin/activate
+```
+
+server entry point :
+```
+cd server
+python main.py
+```
+
+client entry point :
+```
+cd client
+python ./main_client.py
+```
+
+Credits for the card assets go here :
+```md
 https://byronknoll.blogspot.com/2011/03/vector-playing-cards.html
+```
 
-Credits for the cringe code belongs to me. 
-Note : no worky on windows. multiprocessing/pickling issue. ill fix it soon.
+>Credit for the cringe code belongs to me.
+
+Note :
+>no worky on windows. multiprocessing/pickling issue. ill fix it soon.
