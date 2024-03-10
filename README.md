@@ -6,15 +6,33 @@ footage : [YouTube](https://www.youtube.com/watch?v=osxyx6oaBag)
 prototype in python, using raylib/pyray. you'll need this: 
 https://electronstudio.github.io/raylib-python-cffi/index.html
 
+on first run:
+```
+python -m venv env
+source env/bin/activate
+pip install -r requirements.txt
+```
+
+deactivate virtual environment:
+```
+deactivate
+```
+
+after first run:
+```
+source env/bin/activate
+```
 
 server entry point :
 ```
-/server/main.py
+cd server
+python main.py
 ```
 
 client entry point :
 ```
-/client/main_client.py
+cd client
+python ./main_client.py
 ```
 
 Credits for the card assets go here :
