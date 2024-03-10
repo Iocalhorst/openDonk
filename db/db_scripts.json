@@ -1,0 +1,15 @@
+{
+    "bootstrap" : [
+      "CREATE TABLE users(id , name, password, balance)",
+      "INSERT INTO users VALUES (1, 'BetGPT', 'sex',9001)",
+      "INSERT INTO users VALUES (2, 'Bender', 'god',9001)",
+      "INSERT INTO users VALUES (3, 'HAL 9001', 'love', 9001)" ,
+      "INSERT INTO users VALUES (4, 'Johnny 5.1', 'password', 9001)",
+      "INSERT INTO users VALUES (5, 'Dotty Matrix', '12345',9001)",
+      "INSERT INTO users VALUES (6, 'Sir Limpalot', 'kensentme', 9001)"
+    ],
+    "show":[
+      "SELECT * FROM sqlite_master",
+      "SELECT * FROM users"
+    ]
+}

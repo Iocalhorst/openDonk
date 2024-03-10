@@ -1,0 +1,5 @@
+{
+    "version": "openDonk(Client) v.0.0.0.20",
+    "db_sqlite_filename":"db.sqlite",
+    "db_scripts_filename" : "db_scripts.json"
+}
