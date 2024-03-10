@@ -1,9 +1,9 @@
 default_config_json_str='''{
-    "version"                    :   "openDonk(Client) v.0.0.0.42",
-    "lobby_window_title"          :   "openDonk(Client) v.0.0.0.42 - lobby_window",
+    "version"                    :   "openDonk(Client) v.0.0.0.46",
+    "lobby_window_title"          :   "openDonk(Client) v.0.0.0.46 - lobby_window",
     "lobby_window_width"          :   640,
     "lobby_window_height"         :   460,
-    "table_window_title"         :   "openDonk(Client) v.0.0.0.42 - table_window",
+    "table_window_title"         :   "openDonk(Client) v.0.0.0.46 - table_window",
     "table_window_width"         :   1024,
     "table_window_height"        :   768,
     "table_window_width_min"     :   512,
