@@ -48,7 +48,7 @@ def lobby_window_launch(cfg,child_con):
     while exit_condition==False and shutdown_flag==False:
         background_animation.update_self()
 
-        if con.poll(0.01) :
+        if con.poll(0) :
             m=con.recv()
             m_typ=m.get("MESSAGE_TYPE")
             assert m_typ is not None,"e_msg_invalid"
