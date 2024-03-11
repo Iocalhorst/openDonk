@@ -108,7 +108,7 @@ class PokerServer(ThreadingMixIn,TCPServer):
         family,type,proto,canonname,sockaddr=next(iter(infos))
         #TCP_Listener.address_family, addr = get_best_family(self.bind, self.port)
         PokerServer.adress_family=family
-        PokerServer.server_instance=PokerServer(sockaddr,PokerRequestHandler)
+        PokerServer.server_instance=PokerServer(("127.0.0.1",5555),PokerRequestHandler)
         PokerServer.is_happy_flag=True
         return PokerServer.server_instance
     def get_info(self):
