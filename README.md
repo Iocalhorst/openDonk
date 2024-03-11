@@ -42,5 +42,4 @@ https://byronknoll.blogspot.com/2011/03/vector-playing-cards.html
 
 >Credit for the cringe code belongs to me.
 
-Note :
->no worky on windows. multiprocessing/pickling issue. ill fix it soon.
+Note : it does work on my win11 machine now, but theres still a bunch of ugly multiprocessing/pipe errors. 
