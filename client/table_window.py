@@ -1,5 +1,6 @@
 import pyray
 import time
+import os
 #from debug_params import debug_params
 from common.debug_department import DONK_WARNING,DONK_DEBUG,DONK_ERROR
 from table_view.table_view import TableView
@@ -27,17 +28,24 @@ def table_window_launch(window_id,table_id,table_name,cfg,child_con):
     con=child_con
     window_id=window_id
     table_id=table_id
+    os_is_windows=False
+    if os.name=='nt' :
+        os_is_windows=True
+
+    print("table_window_launched")
     assert cfg.get("table_window_width") is not None
     assert cfg.get("table_window_height") is not None
     table_window_title=cfg.get("table_window_title")
     assert table_window_title is not None
 
-    pyray.set_trace_log_level(pyray.LOG_WARNING)
-    #pyray.set_config_flags(pyray.FLAG_WINDOW_ALWAYS_RUN)
+    pyray.set_trace_log_level(pyray.LOG_ERROR)
+
+
     pyray.set_config_flags(pyray.FLAG_WINDOW_RESIZABLE+pyray.FLAG_WINDOW_ALWAYS_RUN+pyray.FLAG_MSAA_4X_HINT) #enum, val=4
+
     table_window_debug_info="(window_id : "+str(window_id)
-    #table_windwowif test_mode==True :
-    test_mode_flag=False#debug_params.get("enable_table_window_test_mode")
+
+    test_mode_flag=False
     assert test_mode_flag is not None,"debug_param nameError"
     if test_mode_flag==True :
         table_window_debug_info+=", table_id : "+str(table_id)+", test_mode=True)"
@@ -45,12 +53,16 @@ def table_window_launch(window_id,table_id,table_name,cfg,child_con):
         table_window_debug_info+=", table_id : "+str(table_id)+")"
     else :
         assert False,"test_mode is None or not a boolean"
-
     pyray.init_window(cfg.get("table_window_width"),cfg.get("table_window_height"),str(table_window_title+table_window_debug_info))
     pyray.set_target_fps(cfg.get("table_window_target_fps"))
     pyray.set_window_min_size(cfg.get("table_window_width_min"),cfg.get("table_window_height_min"))
-    table_window_handle=pyray.get_window_handle()
-    pyray.glfw_set_window_aspect_ratio(table_window_handle, cfg.get("table_window_width"),cfg.get("table_window_height"))
+
+
+    if os_is_windows==False :
+        table_window_handle=pyray.get_window_handle()
+        pyray.glfw_set_window_aspect_ratio(table_window_handle, cfg.get("table_window_width"),cfg.get("table_window_height"))
+
+
 
     exit_condition=False
 
@@ -106,7 +118,33 @@ def table_window_launch(window_id,table_id,table_name,cfg,child_con):
 
     client_is_connected=True
     shutdown_flag=False
+    current_window_width=pyray.get_screen_width()
+    current_window_height=pyray.get_screen_height()
+    print("get_screen_width : ",str(pyray.get_screen_width()))
+    print("get_screen_height : ",str(pyray.get_screen_height()))
     while exit_condition==False and shutdown_flag==False:
+
+        #ghetto fix for maintaining window aspect ratio. to me it seems like intel hd drivers on windows platform result in crashes when calling glfw functions.
+        #the pyray.is_window_resized() return value also doesnt work as expected on my win11/hd5500 machine. see line 60.
+        if pyray.get_screen_height()==current_window_height and pyray.get_screen_width()!=current_window_width :
+            new_window_width=pyray.get_screen_width()
+            new_window_height=int(new_window_width*0.75)
+            pyray.set_window_size(new_window_width,new_window_height)
+            current_window_width=new_window_width
+            current_window_height=new_window_height
+        elif pyray.get_screen_width()==current_window_width and pyray.get_screen_height()!=current_window_height :
+            new_window_height=pyray.get_screen_height()
+            new_window_width=int(new_window_height/0.75)
+            pyray.set_window_size(new_window_width,new_window_height)
+            current_window_width=new_window_width
+            current_window_height=new_window_height
+        elif pyray.get_screen_height()!=current_window_height and pyray.get_screen_width()!=current_window_width :
+            new_window_width=pyray.get_screen_width()
+            new_window_height=int(new_window_width*0.75)
+            pyray.set_window_size(new_window_width,new_window_height)
+            current_window_width=new_window_width
+            current_window_height=new_window_height
+        #ghetto fix end
 
         if con.poll(0) :
             m=con.recv()
@@ -213,7 +251,7 @@ def table_window_launch(window_id,table_id,table_name,cfg,child_con):
 
 
 
-            time.sleep(0.005)
+            time.sleep(0.01)
             pyray.end_drawing()
         if pyray.window_should_close() :
             exit_condition=True
@@ -230,6 +268,5 @@ def table_window_launch(window_id,table_id,table_name,cfg,child_con):
             reason="shutdown_flag==True"
             print("INFO : [table_window] window_id ",window_id," exiting, reason : ",reason)
 
-if __name__=="__main__" :
+if __name__=="__main__":
     print("Error : [table_window] to run the client application use 'main_client.py' as entry point")
-    exit(69)
