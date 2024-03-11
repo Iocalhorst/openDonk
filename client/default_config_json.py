@@ -4,8 +4,8 @@ default_config_json_str='''{
     "lobby_window_width"          :   640,
     "lobby_window_height"         :   460,
     "table_window_title"         :   "openDonk(Client) v.0.0.0.46 - table_window",
-    "table_window_width"         :   1024,
-    "table_window_height"        :   768,
+    "table_window_width"         :   960,
+    "table_window_height"        :   720,
     "table_window_width_min"     :   512,
     "table_window_height_min"    :   334,
     "table_window_color"         :   "very_dark_gray",
@@ -94,8 +94,8 @@ default_config_json_str='''{
             "a" : 255
             }
         },
-    "lobby_window_target_fps" : 30,
-    "table_window_target_fps" : 60,
+    "lobby_window_target_fps" : 12,
+    "table_window_target_fps" : 30,
     "named_colors":{
         "very_dark_gray":{
             "r" : 42,
