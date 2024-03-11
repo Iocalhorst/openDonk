@@ -45,10 +45,10 @@ global_log_domain_params={
             },
             "handle_message_inbox":{
                 "log_any":False,
-                "received_ping":True,
-                "created_response_pong":True,
-                "received_push_table_pool_view":True,
-                "received_push_table_view":True
+                "received_ping":False,
+                "created_response_pong":False,
+                "received_push_table_pool_view":False,
+                "received_push_table_view":False
                 },
             "update_table_views":{
                 "log_any":False,
@@ -57,7 +57,7 @@ global_log_domain_params={
                 },
             "update_table_events":{
                 "log_any":False,
-                "received_table_event":True,
+                "received_table_event":False,
                 "warning_dropping_table_event_data":True,
                 "warning_max_table_events_count":True
                 }
