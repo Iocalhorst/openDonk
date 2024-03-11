@@ -24,7 +24,6 @@ from ipc_messaging import WindowMessenger
 #from common.tools_for_fools import *
 client_config={}
 
-
 KEY_F1=290
 KEY_F2=291
 KEY_F3=292
@@ -73,6 +72,7 @@ def create_table_window(table_window_id,table_view_request,cfg):
     }
     return table_window
 
+
 def is_table_id_in_requests(table_id,requests):
     for r in requests :
         if r.get("table_id")==table_id :
@@ -120,7 +120,7 @@ if __name__=="__main__" :
                 table_window=table_windows.get(open_table_window_id)
                 if is_table_id_in_requests(table_window.get("table_id"),active_table_view_requests)==True :
                     parent_con=table_window.get("parent_con_handle")
-                    if parent_con.poll(0.01) :
+                    if parent_con.poll(0) :
                         m=parent_con.recv()
                         table_window["message_inbox"].append(m)
                     table_window_connection_state=table_window.get("is_connected")
@@ -137,7 +137,7 @@ if __name__=="__main__" :
                     DONK_WARNING(local_domain,local_user,"log_any","table_window which is not listed in active table_view_requests fell through for polling")
 
 
-            if lobby_window_parent_con.poll(0.01) :
+            if lobby_window_parent_con.poll(0) :
                 #print("DEBUG : [lobby_window_parent_con.poll] True")
                 m=lobby_window_parent_con.recv()
                 lobby_window_state["message_inbox"].append(m)
@@ -186,7 +186,7 @@ if __name__=="__main__" :
                             table_window_con.send(m)
                             DONK_DEBUG(local_domain,local_user,"handle_message_inbox","waiting for window_id ",table_window_id," process to 'join'")
                             table_window_process.join()
-                            time.sleep(0.5)
+                            time.sleep(0.01)
 
                     else :
                         assert False,"UNREACHABLE"
@@ -238,7 +238,7 @@ if __name__=="__main__" :
                 table_pool_view_data=connection_thread.get_table_pool_view_data()
                 m=window_messenger.create_ipc_table_pool_view_update_message(table_pool_view_data)
                 lobby_window_state["message_outbox"].append(m)
-                #lobby_window_parent_con.send(m)
+                lobby_window_parent_con.send(m)
                 connection_thread.forget_table_pool_view_data()
 
 
@@ -256,14 +256,14 @@ if __name__=="__main__" :
                 #print("DEBUG : [main_client] ipc_table_window_event_message : ",m)
                     table_window_con=table_window_dict.get("parent_con_handle")
                     table_window_con.send(m)
-                #    time.sleep(0.01)
+                    #time.sleep(0.005)
                 elif connection_thread.has_table_view_data_for_table_id(table_id):
                     table_view_data=connection_thread.get_table_view_data_for_table_id(table_id)
                     m=window_messenger.create_ipc_table_window_update_message(table_window_id,table_id,table_view_data)
                     table_window_con=table_window_dict.get("parent_con_handle")
                     #print("INFO  : [main_client] sending 'ipc_table_window_update_message' window_id ",table_window_id," m = ",m)
                     table_window_con.send(m)
-                #    time.sleep(0.01)
+                    #time.sleep(0.005)
 
 
 
@@ -315,10 +315,6 @@ if __name__=="__main__" :
                             assert request_to_remove in active_table_view_requests
                             active_table_view_requests.remove(request_to_remove)
 
-                    #todo : this is tricky.
-            #for open_table_window_id in list(table_windows.keys()):
-            #    table_window=table_windows.get(op
-            #        #todo : this is tricky.
             for key in list(table_windows.keys()):
                 table_window_dict=table_windows.get(key)
                 e="integrity error, key=="+str(key)+" but table_window_dict.get('table_window_id')=="+str(table_window_dict.get("table_window_id"))
@@ -334,18 +330,13 @@ if __name__=="__main__" :
                             con.close()
                         except :
                             pass
-                    #python3 default_dict special : table_window=table_windows.pop(table_window_id)
                     table_windows[key]=None
                     table_windows.pop(key)
                     del table_window_dict
                     break
-                    #
-                    ##DONK_DEBUG(local_domain,local_user,"table_window_delete","popped : ",table_window," table_window_id")
-                    #del table_window
-                    ##del table_window
-                    #break
 
 
+            time.sleep(0.01) #main_client event loop cpu usage chiller
         except KeyboardInterrupt:
             DONK_DEBUG(local_domain,local_user,"broadcast_send_shutdown")
             #local_shutdown_of_all_child_processes
