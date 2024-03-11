@@ -204,7 +204,8 @@ class ConnectionThread(Thread):
             return False
         else :
             try:
-                buf = self.con.recv(1, socket.MSG_PEEK | socket.MSG_DONTWAIT)
+                self.con.setblocking(0)
+                buf = self.con.recv(1, socket.MSG_PEEK )
                 if buf == b'':
                     self.handle_connection_error()
                     return False
