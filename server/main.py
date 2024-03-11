@@ -26,7 +26,7 @@ NUM_TABLES=15
 
 
 def main():
-    print("openDonk(Server) v.0.0.0.43")
+    print("openDonk(Server) v.0.0.0.48")
 
     cmd_thread=CommandThread()
     srv_thread=ServerThread()
