@@ -50,4 +50,8 @@ https://byronknoll.blogspot.com/2011/03/vector-playing-cards.html
 
 >Credit for the cringe code belongs to me.
 
-Note : it does work on my win11 machine now, but theres still a bunch of ugly multiprocessing/pipe errors. 
+Note : 
+i use ubuntu 22.04 fwiw, on which it runs as expected.
+it does work on my win11 machine now, but theres still a bunch of ugly multiprocessing/pipe errors. 
+
+      
