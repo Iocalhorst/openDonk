@@ -6,6 +6,14 @@ footage : [YouTube](https://www.youtube.com/watch?v=osxyx6oaBag)
 prototype in python, using raylib/pyray. you'll need this: 
 https://electronstudio.github.io/raylib-python-cffi/index.html
 
+this is a recreational programming challenge and work in progress.
+in case you're wondering - the players have no agency at all. 
+they are pushing random buttons in a fixed limit holdem style,
+the dealer knows the game - i think^^
+
+its a long long way ...
+
+
 on first run:
 ```
 python -m venv env
